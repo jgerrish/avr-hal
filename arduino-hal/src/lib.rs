@@ -153,10 +153,11 @@ pub mod spi {
     pub use crate::hal::spi::*;
 
     pub type Spi = crate::hal::spi::Spi;
+    pub type SpiSecondary = crate::hal::spi::SpiSecondary;
 }
 #[doc(no_inline)]
 #[cfg(feature = "mcu-atmega")]
-pub use spi::Spi;
+pub use spi::{Spi, SpiSecondary};
 
 #[cfg(feature = "mcu-atmega")]
 pub mod usart {

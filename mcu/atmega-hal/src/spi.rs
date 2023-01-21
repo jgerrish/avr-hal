@@ -31,6 +31,15 @@ pub type Spi = avr_hal_generic::spi::Spi<
     port::PB2,
 >;
 #[cfg(any(feature = "atmega168", feature = "atmega328p", feature = "atmega48p",))]
+pub type SpiSecondary = avr_hal_generic::spi::SpiSecondary<
+    crate::Atmega,
+    crate::pac::SPI,
+    port::PB5,
+    port::PB3,
+    port::PB4,
+    port::PB2,
+>;
+#[cfg(any(feature = "atmega168", feature = "atmega328p", feature = "atmega48p",))]
 avr_hal_generic::impl_spi! {
     hal: crate::Atmega,
     peripheral: crate::pac::SPI,

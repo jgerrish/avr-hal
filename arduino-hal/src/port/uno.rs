@@ -109,7 +109,7 @@ avr_hal_generic::renamed_pins! {
         /// `D11`
         ///
         /// * **PWM**: [atmega328p_hal::timer::Timer3Pwm]
-        /// * MOSI (SPI bus master/slave input)
+        /// * MOSI (SPI bus master output/slave input)
         /// * OC2A (Timer/Counter2 output compare match A output)
         /// * PCINT3 (pin change interrupt 3)
         pub d11: atmega_hal::port::PB3 = pb3,
@@ -120,7 +120,7 @@ avr_hal_generic::renamed_pins! {
         pub d12: atmega_hal::port::PB4 = pb4,
         /// `D13`
         ///
-        /// * SCK (SPI bus master clock input)
+        /// * SCK (SPI bus master clock output/slave clock input)
         /// * PCINT5 (pin change interrupt 5)
         /// * L LED on Arduino Uno
         pub d13: atmega_hal::port::PB5 = pb5,
