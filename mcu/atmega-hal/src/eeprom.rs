@@ -54,3 +54,43 @@ avr_hal_generic::impl_eeprom_atmega! {
         peripheral.eear.write(|w| w.bits(address));
     },
 }
+
+#[cfg(any(
+    feature = "atmega8"
+))]
+avr_hal_generic::impl_eeprom_atmega_old! {
+    hal: crate::Atmega,
+    peripheral: crate::pac::EEPROM,
+    capacity: 512,
+    addr_width: u16,
+    set_address: |peripheral, address| {
+        peripheral.eear.write(|w| w.bits(address));
+    },
+}
+
+#[cfg(any(
+    feature = "atmega32a"
+))]
+avr_hal_generic::impl_eeprom_atmega_old! {
+    hal: crate::Atmega,
+    peripheral: crate::pac::EEPROM,
+    capacity: 1024,
+    addr_width: u16,
+    set_address: |peripheral, address| {
+        peripheral.eear.write(|w| w.bits(address));
+    },
+}
+
+#[cfg(any(
+    feature = "atmega128a",
+))]
+avr_hal_generic::impl_eeprom_atmega_old! {
+    hal: crate::Atmega,
+    peripheral: crate::pac::EEPROM,
+    capacity: 4096,
+    addr_width: u16,
+    set_address: |peripheral, address| {
+        peripheral.eear.write(|w| w.bits(address));
+    },
+}
+

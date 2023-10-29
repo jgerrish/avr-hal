@@ -125,7 +125,7 @@ impl<H, ADC: AdcOps<H>> AdcChannel<H, ADC> for Channel<H, ADC> {
 /// let pins = atmega_hal::pins!(dp);
 /// let mut adc = atmega_hal::Adc::new(dp.ADC, Default::default());
 ///
-/// let a0 = dp.pc0.into_analog_input(&mut adc);
+/// let a0 = pins.pc0.into_analog_input(&mut adc);
 ///
 /// // the following two calls are equivalent
 /// let voltage = a0.analog_read(&mut adc);
@@ -214,7 +214,7 @@ macro_rules! impl_adc {
         pins: {
             $(
                 $(#[$pin_attr:meta])*
-                $pin:ty: ($pin_channel:expr, $didr:ident::$didr_method:ident),
+                $pin:ty: ($pin_channel:expr$(, $didr:ident::$didr_method:ident)?),
             )+
         },
         $(channels: {
@@ -263,8 +263,9 @@ macro_rules! impl_adc {
             fn raw_enable_channel(&mut self, channel: Self::Channel) {
                 match channel {
                     $(
-                        $(#[$pin_attr])*
-                        x if x == $pin_channel => self.$didr.modify(|_, w| w.$didr_method().set_bit()),
+                        x if x == $pin_channel => {
+                            $(self.$didr.modify(|_, w| w.$didr_method().set_bit());)?
+                        }
                     )+
                     _ => unreachable!(),
                 }
@@ -304,3 +305,4 @@ macro_rules! impl_adc {
         )*)?
     };
 }
+

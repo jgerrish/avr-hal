@@ -9,10 +9,13 @@
 #![cfg_attr(feature = "atmega168", doc = "**ATmega168**.")]
 #![cfg_attr(feature = "atmega328p", doc = "**ATmega328P**.")]
 #![cfg_attr(feature = "atmega328pb", doc = "**ATmega328PB**.")]
+#![cfg_attr(feature = "atmega32a", doc = "**ATmega32a**.")]
 #![cfg_attr(feature = "atmega32u4", doc = "**ATmega32U4**.")]
 #![cfg_attr(feature = "atmega2560", doc = "**ATmega2560**.")]
+#![cfg_attr(feature = "atmega128a", doc = "**ATmega128A**.")]
 #![cfg_attr(feature = "atmega1280", doc = "**ATmega1280**.")]
 #![cfg_attr(feature = "atmega1284p", doc = "**ATmega1284P**.")]
+#![cfg_attr(feature = "atmega8", doc = "**ATmega8**.")]
 //! This means that only items which are available for this MCU are visible.  If you are using
 //! a different chip, try building the documentation locally with:
 //!
@@ -34,9 +37,11 @@ compile_error!(
     * atmega328p
     * atmega328pb
     * atmega32u4
+    * atmega128a
     * atmega1280
     * atmega2560
     * atmega1284p
+    * atmega8
     "
 );
 
@@ -55,15 +60,24 @@ pub use avr_device::atmega328p as pac;
 /// Reexport of `atmega328pb` from `avr-device`
 #[cfg(feature = "atmega328pb")]
 pub use avr_device::atmega328pb as pac;
+/// Reexport of `atmega32a` from `avr-device`
+#[cfg(feature = "atmega32a")]
+pub use avr_device::atmega32a as pac;
 /// Reexport of `atmega32u4` from `avr-device`
 #[cfg(feature = "atmega32u4")]
 pub use avr_device::atmega32u4 as pac;
 /// Reexport of `atmega48p` from `avr-device`
 #[cfg(feature = "atmega48p")]
 pub use avr_device::atmega48p as pac;
+/// Reexport of `atmega128a` from `avr-device`
+#[cfg(feature = "atmega128a")]
+pub use avr_device::atmega128a as pac;
 /// Reexport of `atmega1284p` from `avr-device`
 #[cfg(feature = "atmega1284p")]
 pub use avr_device::atmega1284p as pac;
+/// Reexport of `atmega8` from `avr-device`
+#[cfg(feature = "atmega8")]
+pub use avr_device::atmega8 as pac;
 
 /// See [`avr_device::entry`](https://docs.rs/avr-device/latest/avr_device/attr.entry.html).
 #[cfg(feature = "rt")]
@@ -138,6 +152,17 @@ macro_rules! pins {
         $crate::Pins::new($p.PORTB, $p.PORTC, $p.PORTD, $p.PORTE, $p.PORTF)
     };
 }
+
+#[cfg(any(feature = "atmega128a"))]
+#[macro_export]
+macro_rules! pins {
+    ($p:expr) => {
+        $crate::Pins::new(
+            $p.PORTA, $p.PORTB, $p.PORTC, $p.PORTD, $p.PORTE, $p.PORTF, $p.PORTG,
+        )
+    };
+}
+
 #[cfg(any(feature = "atmega1280", feature = "atmega2560"))]
 #[macro_export]
 macro_rules! pins {
@@ -149,12 +174,22 @@ macro_rules! pins {
     };
 }
 
-#[cfg(any(feature = "atmega1284p"))]
+#[cfg(any(feature = "atmega1284p", feature = "atmega32a"))]
 #[macro_export]
 macro_rules! pins {
     ($p:expr) => {
         $crate::Pins::new(
             $p.PORTA, $p.PORTB, $p.PORTC, $p.PORTD,
+        )
+    };
+}
+
+#[cfg(any(feature = "atmega8"))]
+#[macro_export]
+macro_rules! pins {
+    ($p:expr) => {
+        $crate::Pins::new(
+            $p.PORTB, $p.PORTC, $p.PORTD,
         )
     };
 }
