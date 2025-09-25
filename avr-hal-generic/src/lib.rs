@@ -9,7 +9,7 @@ pub use avr_device;
 #[doc(hidden)]
 pub use nb;
 #[doc(hidden)]
-pub use paste;
+pub use pastey;
 
 pub mod adc;
 pub mod clock;

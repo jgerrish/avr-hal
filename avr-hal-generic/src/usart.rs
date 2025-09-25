@@ -477,7 +477,7 @@ macro_rules! impl_usart_traditional {
         rx: $rxpin:ty,
         tx: $txpin:ty,
     ) => {
-        $crate::paste::paste! {
+        $crate::pastey::paste! {
             impl $crate::usart::UsartOps<
                 $HAL,
                 $crate::port::Pin<$crate::port::mode::Input, $rxpin>,

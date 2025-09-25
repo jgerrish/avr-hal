@@ -576,7 +576,7 @@ macro_rules! impl_port_traditional_base {
         /// "dynamic" type.  Do note, however, that using this dynamic type has a runtime cost.
         pub type Pin<MODE, PIN = Dynamic> = $crate::port::Pin<MODE, PIN>;
 
-        $crate::paste::paste! {
+        $crate::pastey::paste! {
             $(#[$pins_attr])*
             pub struct Pins {
                 $($(pub [<p $name:lower $pin>]: Pin<
@@ -598,7 +598,7 @@ macro_rules! impl_port_traditional_base {
             }
         }
 
-        $crate::paste::paste! {
+        $crate::pastey::paste! {
             #[repr(u8)]
             pub enum DynamicPort {
                 $([<PORT $name>]),+
@@ -621,7 +621,7 @@ macro_rules! impl_port_traditional_base {
             }
         }
 
-        $crate::paste::paste! {
+        $crate::pastey::paste! {
             impl $crate::port::PinOps for Dynamic {
                 type Dynamic = Self;
 
@@ -712,7 +712,7 @@ macro_rules! impl_port_traditional_base {
             }
         }
 
-        $crate::paste::paste! {
+        $crate::pastey::paste! {
             $($(
                 pub struct [<P $name $pin>] {
                     _private: ()
@@ -821,7 +821,7 @@ macro_rules! renamed_pins {
             type McuPins = $mcu_pins:ty;
         }
     ) => {
-        $crate::paste::paste! {
+        $crate::pastey::paste! {
             $(#[$pins_attr])*
             pub struct Pins {
                     $(pub $pin_name: $pin_wrapper<
@@ -831,7 +831,7 @@ macro_rules! renamed_pins {
             }
         }
 
-        $crate::paste::paste! {
+        $crate::pastey::paste! {
             $($(#[$pin_attr])* pub type [<$pin_name:upper>] = $pin_type;)+
         }
 
